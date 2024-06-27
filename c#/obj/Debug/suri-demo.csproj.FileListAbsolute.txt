@@ -30,3 +30,11 @@
 /Users/impedro29/Development/Verbeux/code-samples/suri-demo/suri-demo/obj/Debug/suri-demo.csproj.CopyComplete
 /Users/impedro29/Development/Verbeux/code-samples/suri-demo/suri-demo/obj/Debug/suri_demo.exe
 /Users/impedro29/Development/Verbeux/code-samples/suri-demo/suri-demo/obj/Debug/suri_demo.pdb
+/Users/impedro29/Development/Verbeux/code-samples/c#/bin/Debug/suri_demo.exe
+/Users/impedro29/Development/Verbeux/code-samples/c#/bin/Debug/suri_demo.pdb
+/Users/impedro29/Development/Verbeux/code-samples/c#/bin/Debug/Newtonsoft.Json.xml
+/Users/impedro29/Development/Verbeux/code-samples/c#/obj/Debug/suri-demo.csproj.AssemblyReference.cache
+/Users/impedro29/Development/Verbeux/code-samples/c#/obj/Debug/suri-demo.csproj.CoreCompileInputs.cache
+/Users/impedro29/Development/Verbeux/code-samples/c#/obj/Debug/suri-demo.csproj.CopyComplete
+/Users/impedro29/Development/Verbeux/code-samples/c#/obj/Debug/suri_demo.exe
+/Users/impedro29/Development/Verbeux/code-samples/c#/obj/Debug/suri_demo.pdb
