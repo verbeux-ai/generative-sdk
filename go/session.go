@@ -7,7 +7,7 @@ import (
 	"net/url"
 )
 
-func (s *Client) CreateSession(request SessionCreateRequest) (*SessionResponse, error) {
+func (s *Client) CreateSession(request SessionCreateRequest) (*SessionCreateResponse, error) {
 	requestURL, err := url.Parse(s.baseURL)
 	if err != nil {
 		return nil, err
@@ -24,7 +24,7 @@ func (s *Client) CreateSession(request SessionCreateRequest) (*SessionResponse, 
 		return nil, err
 	}
 
-	returnedBody := SessionResponse{}
+	returnedBody := SessionCreateResponse{}
 	if res.Body != nil {
 		if err := json.NewDecoder(res.Body).Decode(&returnedBody); err != nil {
 			return nil, err

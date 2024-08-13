@@ -8,7 +8,7 @@ import (
 	"net/url"
 )
 
-func (s *Client) SendMessage(request SendMessageRequest) (*SessionResponse, error) {
+func (s *Client) SendMessage(request SendMessageRequest) (*SendMessageResponse, error) {
 	requestURL, err := url.Parse(s.baseURL)
 	if err != nil {
 		return nil, err
@@ -31,7 +31,7 @@ func (s *Client) SendMessage(request SendMessageRequest) (*SessionResponse, erro
 		return nil, err
 	}
 
-	returnedBody := SessionResponse{}
+	returnedBody := SendMessageResponse{}
 	if res.Body != nil {
 		if err := json.NewDecoder(res.Body).Decode(&returnedBody); err != nil {
 			return nil, err
