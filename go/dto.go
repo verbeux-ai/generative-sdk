@@ -35,6 +35,9 @@ type SendMessageResponse struct {
 	ID             string                       `json:"id"`
 	Response       []SendMessageResponseContent `json:"response"`
 	IsAnythingElse bool                         `json:"isAnythingElse"`
+
+	// Message is returned when has an error
+	Message interface{} `json:"message"`
 }
 
 type SendMessageResponseContent struct {

@@ -14,7 +14,7 @@ func (s *Client) SendMessage(request SendMessageRequest) (*SendMessageResponse, 
 		return nil, err
 	}
 
-	requestURL.Path = SessionRoute
+	requestURL.Path = fmt.Sprintf("%s/%s", SessionRoute, request.ID)
 	body, err := json.Marshal(request)
 	if err != nil {
 		return nil, err
@@ -25,6 +25,7 @@ func (s *Client) SendMessage(request SendMessageRequest) (*SendMessageResponse, 
 		return nil, err
 	}
 	httpRequest.Header.Set("Content-Type", "application/json")
+	httpRequest.Header.Set("api-key", s.apiKey)
 
 	res, err := s.httpClient.Do(httpRequest)
 	if err != nil {
@@ -39,7 +40,7 @@ func (s *Client) SendMessage(request SendMessageRequest) (*SendMessageResponse, 
 	}
 
 	if res.StatusCode > 399 {
-		return nil, fmt.Errorf("%w: %v", ErrCreateSession, returnedBody)
+		return nil, fmt.Errorf("%w: %v", ErrSendMessage, returnedBody)
 	}
 
 	return &returnedBody, nil

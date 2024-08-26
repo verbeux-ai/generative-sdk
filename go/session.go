@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
+	"net/http"
 	"net/url"
 )
 
@@ -19,7 +20,14 @@ func (s *Client) CreateSession(request SessionCreateRequest) (*SessionCreateResp
 		return nil, err
 	}
 
-	res, err := s.httpClient.Post(requestURL.String(), "application/json", bytes.NewBuffer(body))
+	httpRequest, err := http.NewRequest("POST", requestURL.String(), bytes.NewBuffer(body))
+	if err != nil {
+		return nil, err
+	}
+	httpRequest.Header.Set("Content-Type", "application/json")
+	httpRequest.Header.Set("api-key", s.apiKey)
+
+	res, err := s.httpClient.Do(httpRequest)
 	if err != nil {
 		return nil, err
 	}
