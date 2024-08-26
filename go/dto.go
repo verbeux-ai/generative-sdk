@@ -9,23 +9,7 @@ type SessionCreateRequest struct {
 	History     []HistoryRecord `json:"history"`
 }
 
-type SendMessageRequest struct {
-	ID      string `json:"id"`
-	Message string `json:"message"`
-}
-
-type HistoryRecord struct {
-	Content []string `json:"content"`
-	Role    string   `json:"role"`
-}
-
-type ChatMessageType string
-
-type PresetModelType string
-
-type GenerativeActionType string
-
-type SessionResponse struct {
+type SessionCreateResponse struct {
 	ID                  string              `json:"id"`
 	AssistantID         uint                `json:"assistant_id"`
 	CurrentConversation []Message           `json:"current_conversation"`
@@ -41,6 +25,39 @@ type SessionResponse struct {
 	// Message is returned when has an error
 	Message interface{} `json:"message"`
 }
+
+type SendMessageRequest struct {
+	ID      string `json:"id"`
+	Message string `json:"message"`
+}
+
+type SendMessageResponse struct {
+	ID             string                       `json:"id"`
+	Response       []SendMessageResponseContent `json:"response"`
+	IsAnythingElse bool                         `json:"isAnythingElse"`
+
+	// Message is returned when has an error
+	Message interface{} `json:"message"`
+}
+
+type SendMessageResponseContent struct {
+	// TODO: use interface on data
+	Data any          `json:"data"`
+	Type ResponseType `json:"type"`
+}
+
+type ResponseType string
+
+type HistoryRecord struct {
+	Content []string `json:"content"`
+	Role    string   `json:"role"`
+}
+
+type ChatMessageType string
+
+type PresetModelType string
+
+type GenerativeActionType string
 
 type Message struct {
 	Role ChatMessageType `json:"role"`

@@ -8,13 +8,13 @@ import (
 	"net/url"
 )
 
-func (s *Client) SendMessage(request SendMessageRequest) (*SessionResponse, error) {
+func (s *Client) SendMessage(request SendMessageRequest) (*SendMessageResponse, error) {
 	requestURL, err := url.Parse(s.baseURL)
 	if err != nil {
 		return nil, err
 	}
 
-	requestURL.Path = SessionRoute
+	requestURL.Path = fmt.Sprintf("%s/%s", SessionRoute, request.ID)
 	body, err := json.Marshal(request)
 	if err != nil {
 		return nil, err
@@ -25,13 +25,14 @@ func (s *Client) SendMessage(request SendMessageRequest) (*SessionResponse, erro
 		return nil, err
 	}
 	httpRequest.Header.Set("Content-Type", "application/json")
+	httpRequest.Header.Set("api-key", s.apiKey)
 
 	res, err := s.httpClient.Do(httpRequest)
 	if err != nil {
 		return nil, err
 	}
 
-	returnedBody := SessionResponse{}
+	returnedBody := SendMessageResponse{}
 	if res.Body != nil {
 		if err := json.NewDecoder(res.Body).Decode(&returnedBody); err != nil {
 			return nil, err
@@ -39,7 +40,7 @@ func (s *Client) SendMessage(request SendMessageRequest) (*SessionResponse, erro
 	}
 
 	if res.StatusCode > 399 {
-		return nil, fmt.Errorf("%w: %v", ErrCreateSession, returnedBody)
+		return nil, fmt.Errorf("%w: %v", ErrSendMessage, returnedBody)
 	}
 
 	return &returnedBody, nil

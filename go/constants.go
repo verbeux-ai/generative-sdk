@@ -15,6 +15,14 @@ const (
 	GenActionWebhook GenerativeActionType = "WEBHOOK"
 )
 
+// ResponseType types
+const (
+	ReferenceResponseType ResponseType = "reference"
+	TextResponseType      ResponseType = "text"
+	TriggerResponseType   ResponseType = "trigger"
+)
+
+// Routes to request in genai
 const (
 	SessionRoute = "session"
 )
