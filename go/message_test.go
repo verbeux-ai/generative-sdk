@@ -9,8 +9,8 @@ import (
 
 func TestSendMessage(t *testing.T) {
 	client := verbeux.NewClient(
-		verbeux.WithApiKey("82041401-71da-11ef-a26e-42004e494300"),
-		verbeux.WithBaseUrl("https://generative-api-dev.verbeux.com.br"),
+		verbeux.WithApiKey(""),
+		verbeux.WithBaseUrl(""),
 	)
 
 	resCreateSession, err := client.CreateSession(verbeux.SessionCreateRequest{
