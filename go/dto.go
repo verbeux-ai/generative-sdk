@@ -1,6 +1,7 @@
 package verbeux
 
 import (
+	"io"
 	"time"
 )
 
@@ -29,6 +30,13 @@ type SessionCreateResponse struct {
 type SendMessageRequest struct {
 	ID      string `json:"id"`
 	Message string `json:"message"`
+	Files   []FileAttachment
+}
+
+type FileAttachment struct {
+	FieldName string
+	FileName  string
+	Reader    io.Reader
 }
 
 type SendMessageResponse struct {
