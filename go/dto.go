@@ -27,8 +27,9 @@ type SessionCreateResponse struct {
 }
 
 type SendMessageRequest struct {
-	ID      string `json:"id"`
-	Message string `json:"message"`
+	ID         string            `json:"id"`
+	Message    string            `json:"message"`
+	ClientData map[string]string `json:"clientData"`
 }
 
 type SendMessageResponse struct {
