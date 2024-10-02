@@ -26,11 +26,13 @@ type SessionCreateResponse struct {
 	Message interface{} `json:"message"`
 }
 
+type Channel string
+
 type SendMessageRequest struct {
-	ID      string `json:"id"`
-	Message string `json:"message"`
+	ID         string            `json:"id"`
+	Message    string            `json:"message"`
 	ClientData map[string]string `json:"clientData"`
-	Channel string `json:"channel"`
+	Channel    Channel           `json:"channel"`
 }
 
 type SendMessageResponse struct {
