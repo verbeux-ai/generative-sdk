@@ -29,6 +29,7 @@ type SessionCreateResponse struct {
 type SendMessageRequest struct {
 	ID      string `json:"id"`
 	Message string `json:"message"`
+	Channel string `json:"channel"`
 }
 
 type SendMessageResponse struct {
