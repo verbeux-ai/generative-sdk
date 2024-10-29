@@ -9,6 +9,13 @@ type SessionCreateRequest struct {
 	History     []HistoryRecord `json:"history"`
 }
 
+type SessionUpdateRequest struct {
+	SessionID                 string          `json:"-"`
+	CurrentConversation       []HistoryRecord `json:"current_conversation,omitempty"`
+	CurrentConversationAppend []HistoryRecord `json:"current_conversation_append,omitempty"`
+	RestrictedByContext       *bool           `json:"restricted_by_context,omitempty"`
+}
+
 type SessionCreateResponse struct {
 	ID                  string              `json:"id"`
 	AssistantID         uint                `json:"assistant_id"`
@@ -33,7 +40,6 @@ type SendMessageRequest struct {
 	Message    string            `json:"message"`
 	ClientData map[string]string `json:"clientData"`
 	Channel    Channel           `json:"channel"`
-	History    []HistoryRecord   `json:"history"`
 }
 
 type SendMessageResponse struct {
@@ -54,8 +60,12 @@ type SendMessageResponseContent struct {
 type ResponseType string
 
 type HistoryRecord struct {
-	Content []string `json:"content"`
-	Role    string   `json:"role"`
+	Content []any  `json:"content"`
+	Role    string `json:"role"`
+}
+
+type HistoryRecordContentText struct {
+	Text string `json:"text"`
 }
 
 type ChatMessageType string
