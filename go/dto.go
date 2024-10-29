@@ -33,6 +33,7 @@ type SendMessageRequest struct {
 	Message    string            `json:"message"`
 	ClientData map[string]string `json:"clientData"`
 	Channel    Channel           `json:"channel"`
+	History    []HistoryRecord   `json:"history"`
 }
 
 type SendMessageResponse struct {
