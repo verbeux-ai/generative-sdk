@@ -5,9 +5,13 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
+	"mime"
 	"mime/multipart"
 	"net/http"
+	"net/textproto"
 	"net/url"
+	"path/filepath"
+	"strings"
 )
 
 func (s *Client) SendMessage(request SendMessageRequest) (*SendMessageResponse, error) {
@@ -15,17 +19,19 @@ func (s *Client) SendMessage(request SendMessageRequest) (*SendMessageResponse, 
 	if err != nil {
 		return nil, err
 	}
+
 	requestURL.Path = fmt.Sprintf("%s/%s", SessionRoute, request.ID)
 
-	// Cria um buffer para o corpo da requisição
+	// Create a buffer to hold the multipart form data
 	var body bytes.Buffer
 	writer := multipart.NewWriter(&body)
 
-	// Adiciona campos ao form data
+	// Add form fields
 	err = writer.WriteField("id", request.ID)
 	if err != nil {
 		return nil, err
 	}
+
 	if len(request.Message) > 0 {
 		err = writer.WriteField("message", request.Message)
 		if err != nil {
@@ -38,17 +44,23 @@ func (s *Client) SendMessage(request SendMessageRequest) (*SendMessageResponse, 
 		if file.FieldName != "" {
 			fieldName = file.FieldName
 		}
-		part, err := writer.CreateFormFile(fieldName, file.FileName)
-		if err != nil {
-			return nil, err
+
+		// Infer the MIME type based on file extension
+		mimeType := "application/octet-stream" // Default type
+		if file.FileName != "" {
+			mimeType = mime.TypeByExtension(filepath.Ext(file.FileName))
+			if mimeType == "" {
+				mimeType = "application/octet-stream"
+			}
 		}
-		_, err = io.Copy(part, file.Reader)
+
+		// Create a form file with the correct headers
+		err := createFormFileWithContentType(writer, fieldName, file.FileName, mimeType, file.Reader)
 		if err != nil {
 			return nil, err
 		}
 	}
 
-	// Finaliza o writer
 	err = writer.Close()
 	if err != nil {
 		return nil, err
@@ -58,6 +70,7 @@ func (s *Client) SendMessage(request SendMessageRequest) (*SendMessageResponse, 
 	if err != nil {
 		return nil, err
 	}
+
 	httpRequest.Header.Set("Content-Type", writer.FormDataContentType())
 	httpRequest.Header.Set("api-key", s.apiKey)
 
@@ -73,8 +86,33 @@ func (s *Client) SendMessage(request SendMessageRequest) (*SendMessageResponse, 
 			return nil, err
 		}
 	}
+
 	if res.StatusCode > 399 {
 		return nil, fmt.Errorf("%w: %v", ErrSendMessage, returnedBody)
 	}
+
 	return &returnedBody, nil
+}
+
+// Custom function to create a form file with the correct Content-Type
+func createFormFileWithContentType(w *multipart.Writer, fieldname, filename, contentType string, reader io.Reader) error {
+	// Create the form-data header with the proper Content-Disposition and Content-Type
+	h := make(textproto.MIMEHeader)
+	h.Set("Content-Disposition", fmt.Sprintf(`form-data; name="%s"; filename="%s"`, escapeQuotes(fieldname), escapeQuotes(filename)))
+	h.Set("Content-Type", contentType)
+
+	// Create the part with the custom headers
+	part, err := w.CreatePart(h)
+	if err != nil {
+		return err
+	}
+
+	// Copy the file data into the part
+	_, err = io.Copy(part, reader)
+	return err
+}
+
+// Helper function to escape quotes in field names and file names
+func escapeQuotes(s string) string {
+	return strings.ReplaceAll(s, `"`, `\"`)
 }
