@@ -26,3 +26,13 @@ const (
 const (
 	SessionRoute = "session"
 )
+
+// Channels
+const (
+	WhatsappChannel  Channel = "WHATSAPP"
+	ZAPIChannel      Channel = "Z_API"
+	EvolutionChannel Channel = "EVOLUTION"
+	MyzapChannel     Channel = "MY_ZAP"
+	RitaChannel      Channel = "RITA"
+	APIChannel       Channel = "API"
+)
