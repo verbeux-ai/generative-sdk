@@ -47,6 +47,7 @@ type SendMessageRequest struct {
 type FileAttachment struct {
 	FieldName string
 	FileName  string
+	MimeType  string
 	Reader    io.Reader
 }
 

@@ -46,8 +46,8 @@ func (s *Client) SendMessage(request SendMessageRequest) (*SendMessageResponse, 
 		}
 
 		// Infer the MIME type based on file extension
-		mimeType := "application/octet-stream" // Default type
-		if file.FileName != "" {
+		mimeType := file.MimeType // Default type
+		if file.FileName != "" && mimeType == "" {
 			mimeType = mime.TypeByExtension(filepath.Ext(file.FileName))
 			if mimeType == "" {
 				mimeType = "application/octet-stream"
