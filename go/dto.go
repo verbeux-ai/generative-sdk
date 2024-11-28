@@ -41,7 +41,7 @@ type SendMessageRequest struct {
 	Message    string            `json:"message"`
 	ClientData map[string]string `json:"clientData"`
 	Channel    Channel           `json:"channel"`
-	Files      []FileAttachment
+	Files      []FileAttachment  `json:"files"`
 }
 
 type FileAttachment struct {

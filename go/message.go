@@ -39,6 +39,24 @@ func (s *Client) SendMessage(request SendMessageRequest) (*SendMessageResponse, 
 		}
 	}
 
+	if len(request.Channel) > 0 {
+		err = writer.WriteField("channel", string(request.Channel))
+		if err != nil {
+			return nil, err
+		}
+	}
+
+	if len(request.ClientData) > 0 {
+		clientDataJSON, err := json.Marshal(request.ClientData)
+		if err != nil {
+			return nil, fmt.Errorf("failed to serialize clientData: %w", err)
+		}
+		// Add JSON-encoded clientData as a form field
+		if err := writer.WriteField("clientData", string(clientDataJSON)); err != nil {
+			return nil, err
+		}
+	}
+
 	for i, file := range request.Files {
 		fieldName := fmt.Sprintf("file_%d", i)
 		if file.FieldName != "" {
