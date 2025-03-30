@@ -104,8 +104,8 @@ func (s *Client) buildSendMessageBody(request SendMessageBody) (*multipart.Write
 			return nil, nil, err
 		}
 	}
-	if request.ForceTriggerCall != nil {
-		err := writer.WriteField("force_trigger_call", fmt.Sprintf("%t", *request.IgnoreTriggerResponse))
+	if request.IgnoreTriggerResponse != nil {
+		err := writer.WriteField("ignore_trigger_response", fmt.Sprintf("%t", *request.IgnoreTriggerResponse))
 		if err != nil {
 			return nil, nil, err
 		}
@@ -152,7 +152,6 @@ func (s *Client) OneShot(request OneShotRequest) (*SendMessageResponse, error) {
 	}
 
 	requestURL.Path = fmt.Sprintf("%s/one-shot", SessionRoute)
-
 	writer, body, err := s.buildSendMessageBody(request.SendMessageBody)
 	if err != nil {
 		return nil, err
