@@ -6,8 +6,16 @@ import (
 )
 
 type SessionCreateRequest struct {
-	AssistantId int             `json:"assistant_id"`
-	History     []HistoryRecord `json:"history"`
+	SessionHistory
+	SessionAssistantID
+}
+
+type SessionAssistantID struct {
+	AssistantId int `json:"assistant_id"`
+}
+
+type SessionHistory struct {
+	History []HistoryRecord `json:"history"`
 }
 
 type SessionUpdateRequest struct {
@@ -34,14 +42,29 @@ type SessionCreateResponse struct {
 	Message interface{} `json:"message"`
 }
 
+type OneShotRequest struct {
+	SendMessageBody
+	SessionHistory
+	SessionAssistantID
+	SeedSession string `json:"seed_session,omitempty" form:"seed_session" validate:"omitempty,uuid"`
+}
+
 type Channel string
 
 type SendMessageRequest struct {
-	ID         string            `json:"id"`
-	Message    string            `json:"message"`
-	ClientData map[string]string `json:"clientData"`
-	Channel    Channel           `json:"channel"`
-	Files      []FileAttachment  `json:"files"`
+	ID string `json:"id"`
+	SendMessageBody
+}
+
+type SendMessageBody struct {
+	Message               string            `json:"message"`
+	ClientData            map[string]string `json:"clientData"`
+	Channel               Channel           `json:"channel"`
+	Files                 []FileAttachment  `json:"files"`
+	FilesURL              []string          `json:"files_url" validate:"omitempty,max=3"`
+	Debug                 *bool             `json:"debug"`
+	IgnoreTriggerResponse *bool             `json:"ignore_trigger_response"`
+	ForceTriggerCall      *bool             `json:"force_trigger_call"`
 }
 
 type FileAttachment struct {
