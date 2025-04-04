@@ -20,6 +20,9 @@ const (
 	ReferenceResponseType ResponseType = "reference"
 	TextResponseType      ResponseType = "text"
 	TriggerResponseType   ResponseType = "trigger"
+	ButtonResponseType    ResponseType = "button"
+	ImageResponseType     ResponseType = "image"
+	AudioResponseType     ResponseType = "audio"
 )
 
 // Routes to request in genai
