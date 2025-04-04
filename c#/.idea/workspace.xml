@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="ALL" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="8c2fc3eb-7930-4f08-adfa-f9a0466494da" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/Debug/Newtonsoft.Json.dll" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/Newtonsoft.Json.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/Debug/Newtonsoft.Json.xml" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/Newtonsoft.Json.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/Debug/System.IO.dll" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/System.IO.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/Debug/System.Net.Http.dll" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/System.Net.Http.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/Debug/System.Runtime.dll" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/System.Runtime.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/Debug/System.Security.Cryptography.Algorithms.dll" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/System.Security.Cryptography.Algorithms.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/Debug/System.Security.Cryptography.Encoding.dll" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/System.Security.Cryptography.Encoding.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/Debug/System.Security.Cryptography.Primitives.dll" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/System.Security.Cryptography.Primitives.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/Debug/System.Security.Cryptography.X509Certificates.dll" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/System.Security.Cryptography.X509Certificates.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/Debug/suri_demo.exe" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/suri_demo.exe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/Debug/suri_demo.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/suri_demo.pdb" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="GOROOT" url="file://$USER_HOME$/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.23.4.darwin-arm64" />
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 3
+}]]></component>
+  <component name="ProjectId" id="2vGiAS4LmOFV9dildES34SffeHg" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.go.formatter.settings.were.checked": "true",
+    "RunOnceActivity.go.migrated.go.modules.settings": "true",
+    "RunOnceActivity.go.modules.go.list.on.any.changes.was.set": "true",
+    "com.google.cloudcode.ide_session_index": "20250404_0000",
+    "git-widget-placeholder": "chore/new-types",
+    "go.import.settings.migrated": "true",
+    "go.sdk.automatically.set": "true",
+    "last_opened_file_path": "/Users/impedro29",
+    "nodejs_package_manager_path": "npm"
+  }
+}]]></component>
+  <component name="RunManager">
+    <configuration default="true" type="GoApplicationRunConfiguration" factoryName="Go Application">
+      <module name="c#" />
+      <working_directory value="$PROJECT_DIR$" />
+      <go_parameters value="-i" />
+      <kind />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$" />
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="GoTestRunConfiguration" factoryName="Go Test">
+      <module name="c#" />
+      <working_directory value="$PROJECT_DIR$" />
+      <go_parameters value="-i" />
+      <kind />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$" />
+      <framework value="gotest" />
+      <method v="2" />
+    </configuration>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-gosdk-5df93f7ad4aa-df9ad98b711f-org.jetbrains.plugins.go.sharedIndexes.bundled-GO-242.24807.19" />
+        <option value="bundled-js-predefined-d6986cc7102b-5c90d61e3bab-JavaScript-GO-242.24807.19" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="VgoProject">
+    <settings-migrated>true</settings-migrated>
+  </component>
+</project>
