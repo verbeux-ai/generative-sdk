@@ -92,20 +92,26 @@ func (s *Client) buildSendMessageBody(request SendMessageBody) (*multipart.Write
 		}
 	}
 
-	if request.ForceTriggerCall != nil {
-		err := writer.WriteField("force_trigger_call", fmt.Sprintf("%t", *request.ForceTriggerCall))
+	if request.ForceTriggerCall {
+		err := writer.WriteField("force_trigger_call", fmt.Sprintf("%t", request.ForceTriggerCall))
 		if err != nil {
 			return nil, nil, err
 		}
 	}
-	if request.Debug != nil {
-		err := writer.WriteField("debug", fmt.Sprintf("%t", *request.Debug))
+	if request.Copilot {
+		err := writer.WriteField("copilot", fmt.Sprintf("%t", request.Copilot))
 		if err != nil {
 			return nil, nil, err
 		}
 	}
-	if request.IgnoreTriggerResponse != nil {
-		err := writer.WriteField("ignore_trigger_response", fmt.Sprintf("%t", *request.IgnoreTriggerResponse))
+	if request.Debug {
+		err := writer.WriteField("debug", fmt.Sprintf("%t", request.Debug))
+		if err != nil {
+			return nil, nil, err
+		}
+	}
+	if request.IgnoreTriggerResponse {
+		err := writer.WriteField("ignore_trigger_response", fmt.Sprintf("%t", request.IgnoreTriggerResponse))
 		if err != nil {
 			return nil, nil, err
 		}

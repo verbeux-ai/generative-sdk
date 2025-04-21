@@ -62,9 +62,10 @@ type SendMessageBody struct {
 	Channel               Channel           `json:"channel"`
 	Files                 []FileAttachment  `json:"files"`
 	FilesURL              []string          `json:"files_url" validate:"omitempty,max=3"`
-	Debug                 *bool             `json:"debug"`
-	IgnoreTriggerResponse *bool             `json:"ignore_trigger_response"`
-	ForceTriggerCall      *bool             `json:"force_trigger_call"`
+	Debug                 bool              `json:"debug"`
+	IgnoreTriggerResponse bool              `json:"ignore_trigger_response"`
+	ForceTriggerCall      bool              `json:"force_trigger_call"`
+	Copilot               bool              `json:"copilot"`
 }
 
 type FileAttachment struct {
