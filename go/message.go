@@ -2,6 +2,7 @@ package verbeux
 
 import (
 	"bytes"
+	"context"
 	"encoding/json"
 	"fmt"
 	"io"
@@ -14,7 +15,7 @@ import (
 	"strings"
 )
 
-func (s *Client) SendMessage(request SendMessageRequest) (*SendMessageResponse, error) {
+func (s *Client) SendMessage(ctx context.Context, request SendMessageRequest) (*SendMessageResponse, error) {
 	requestURL, err := url.Parse(s.baseURL)
 	if err != nil {
 		return nil, err
@@ -36,7 +37,7 @@ func (s *Client) SendMessage(request SendMessageRequest) (*SendMessageResponse, 
 		return nil, err
 	}
 
-	httpRequest, err := http.NewRequest("PUT", requestURL.String(), body)
+	httpRequest, err := http.NewRequestWithContext(ctx, "PUT", requestURL.String(), body)
 	if err != nil {
 		return nil, err
 	}
@@ -151,7 +152,7 @@ func (s *Client) buildSendMessageBody(request SendMessageBody) (*multipart.Write
 	return writer, &body, nil
 }
 
-func (s *Client) OneShot(request OneShotRequest) (*SendMessageResponse, error) {
+func (s *Client) OneShot(ctx context.Context, request OneShotRequest) (*SendMessageResponse, error) {
 	requestURL, err := url.Parse(s.baseURL)
 	if err != nil {
 		return nil, err
@@ -187,7 +188,7 @@ func (s *Client) OneShot(request OneShotRequest) (*SendMessageResponse, error) {
 		return nil, err
 	}
 
-	httpRequest, err := http.NewRequest("POST", requestURL.String(), body)
+	httpRequest, err := http.NewRequestWithContext(ctx, "POST", requestURL.String(), body)
 	if err != nil {
 		return nil, err
 	}

@@ -2,13 +2,14 @@ package verbeux
 
 import (
 	"bytes"
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/http"
 	"net/url"
 )
 
-func (s *Client) CreateSession(request SessionCreateRequest) (*SessionCreateResponse, error) {
+func (s *Client) CreateSession(ctx context.Context, request SessionCreateRequest) (*SessionCreateResponse, error) {
 	requestURL, err := url.Parse(s.baseURL)
 	if err != nil {
 		return nil, err
@@ -20,7 +21,7 @@ func (s *Client) CreateSession(request SessionCreateRequest) (*SessionCreateResp
 		return nil, err
 	}
 
-	httpRequest, err := http.NewRequest("POST", requestURL.String(), bytes.NewBuffer(body))
+	httpRequest, err := http.NewRequestWithContext(ctx, "POST", requestURL.String(), bytes.NewBuffer(body))
 	if err != nil {
 		return nil, err
 	}
@@ -46,7 +47,7 @@ func (s *Client) CreateSession(request SessionCreateRequest) (*SessionCreateResp
 	return &returnedBody, nil
 }
 
-func (s *Client) UpdateSession(request SessionUpdateRequest) (*SessionCreateResponse, error) {
+func (s *Client) UpdateSession(ctx context.Context, request SessionUpdateRequest) (*SessionCreateResponse, error) {
 	requestURL, err := url.Parse(s.baseURL)
 	if err != nil {
 		return nil, err
@@ -58,7 +59,7 @@ func (s *Client) UpdateSession(request SessionUpdateRequest) (*SessionCreateResp
 		return nil, err
 	}
 
-	httpRequest, err := http.NewRequest("PATCH", requestURL.String(), bytes.NewBuffer(body))
+	httpRequest, err := http.NewRequestWithContext(ctx, "PATCH", requestURL.String(), bytes.NewBuffer(body))
 	if err != nil {
 		return nil, err
 	}

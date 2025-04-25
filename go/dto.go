@@ -34,10 +34,6 @@ type SessionCreateResponse struct {
 	RestrictedByContext bool                `json:"restricted_by_context"`
 	GenerativeTriggers  []GenerativeTrigger `json:"integration_calls"`
 
-	// AuthTrigger
-	// Deprecated: is not implemented on backend
-	AuthTrigger *GenerativeTrigger `json:"auth_function"`
-
 	// Message is returned when has an error
 	Message interface{} `json:"message"`
 }
