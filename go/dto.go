@@ -8,7 +8,7 @@ import (
 type SessionCreateRequest struct {
 	SessionHistory
 	SessionAssistantID
-	ClientDataRequest
+	ClientDataBody
 }
 
 type SessionAssistantID struct {
@@ -34,12 +34,13 @@ type SessionCreateResponse struct {
 	CompanyID           uint                `json:"company_id"`
 	RestrictedByContext bool                `json:"restricted_by_context"`
 	GenerativeTriggers  []GenerativeTrigger `json:"integration_calls"`
+	ClientDataBody
 
 	// Message is returned when has an error
 	Message interface{} `json:"message"`
 }
 
-type ClientDataRequest struct {
+type ClientDataBody struct {
 	ClientData map[string]string `json:"client_data,omitempty"`
 }
 
@@ -66,7 +67,7 @@ type SendMessageBody struct {
 	IgnoreTriggerResponse bool             `json:"ignore_trigger_response"`
 	ForceTriggerCall      bool             `json:"force_trigger_call"`
 	Copilot               bool             `json:"copilot"`
-	ClientDataRequest
+	ClientDataBody
 }
 
 type FileAttachment struct {
