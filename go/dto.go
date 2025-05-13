@@ -8,6 +8,7 @@ import (
 type SessionCreateRequest struct {
 	SessionHistory
 	SessionAssistantID
+	ClientDataRequest
 }
 
 type SessionAssistantID struct {
@@ -38,6 +39,10 @@ type SessionCreateResponse struct {
 	Message interface{} `json:"message"`
 }
 
+type ClientDataRequest struct {
+	ClientData map[string]string `json:"client_data,omitempty"`
+}
+
 type OneShotRequest struct {
 	SendMessageBody
 	SessionHistory
@@ -53,15 +58,15 @@ type SendMessageRequest struct {
 }
 
 type SendMessageBody struct {
-	Message               string            `json:"message"`
-	ClientData            map[string]string `json:"clientData"`
-	Channel               Channel           `json:"channel"`
-	Files                 []FileAttachment  `json:"files"`
-	FilesURL              []string          `json:"files_url" validate:"omitempty,max=3"`
-	Debug                 bool              `json:"debug"`
-	IgnoreTriggerResponse bool              `json:"ignore_trigger_response"`
-	ForceTriggerCall      bool              `json:"force_trigger_call"`
-	Copilot               bool              `json:"copilot"`
+	Message               string           `json:"message"`
+	Channel               Channel          `json:"channel"`
+	Files                 []FileAttachment `json:"files"`
+	FilesURL              []string         `json:"files_url" validate:"omitempty,max=3"`
+	Debug                 bool             `json:"debug"`
+	IgnoreTriggerResponse bool             `json:"ignore_trigger_response"`
+	ForceTriggerCall      bool             `json:"force_trigger_call"`
+	Copilot               bool             `json:"copilot"`
+	ClientDataRequest
 }
 
 type FileAttachment struct {
