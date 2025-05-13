@@ -24,6 +24,7 @@ type SessionUpdateRequest struct {
 	CurrentConversation       []HistoryRecord `json:"current_conversation,omitempty"`
 	CurrentConversationAppend []HistoryRecord `json:"current_conversation_append,omitempty"`
 	RestrictedByContext       *bool           `json:"restricted_by_context,omitempty"`
+	ClientDataBody
 }
 
 type SessionCreateResponse struct {
