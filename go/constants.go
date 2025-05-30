@@ -22,6 +22,7 @@ const (
 	TriggerResponseType   ResponseType = "trigger"
 	ButtonResponseType    ResponseType = "button"
 	ImageResponseType     ResponseType = "image"
+	ImageV2ResponseType   ResponseType = "imageV2"
 	AudioResponseType     ResponseType = "audio"
 )
 
