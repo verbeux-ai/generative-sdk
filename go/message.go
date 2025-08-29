@@ -117,12 +117,9 @@ func (s *Client) buildSendMessageBody(request SendMessageBody) (*multipart.Write
 			return nil, nil, err
 		}
 	}
-	if len(request.FilesURL) > 0 {
-		fileURLJSON, err := json.Marshal(request.FilesURL)
-		if err != nil {
-			return nil, nil, fmt.Errorf("failed to serialize filesURL: %w", err)
-		}
-		if err := writer.WriteField("files_url", string(fileURLJSON)); err != nil {
+
+	for _, fileURL := range request.FilesURL {
+		if err := writer.WriteField("files_url", fileURL); err != nil {
 			return nil, nil, err
 		}
 	}
