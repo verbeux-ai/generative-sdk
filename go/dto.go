@@ -78,10 +78,14 @@ type FileAttachment struct {
 	Reader    io.Reader
 }
 
+type Transcription struct {
+	Transcription string `json:"transcription"`
+}
 type SendMessageResponse struct {
 	ID             string                       `json:"id"`
 	Response       []SendMessageResponseContent `json:"response"`
 	IsAnythingElse bool                         `json:"isAnythingElse"`
+	Transcriptions []Transcription              `json:"transcriptions"`
 
 	// Message is returned when has an error
 	Message interface{} `json:"message"`
