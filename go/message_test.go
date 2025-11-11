@@ -1,33 +1,43 @@
 package verbeux_test
 
 import (
+	"context"
 	"os"
 	"testing"
+
+	"github.com/joho/godotenv"
 
 	"github.com/stretchr/testify/require"
 	verbeux "github.com/verbeux-ai/generative-sdk/go"
 )
 
+func TestMain(m *testing.M) {
+	godotenv.Load("../.env")
+	os.Exit(m.Run())
+
+}
 func TestSendMessage(t *testing.T) {
 	client := verbeux.NewClient(
 		verbeux.WithApiKey(os.Getenv("API_KEY")),
 		verbeux.WithBaseUrl(os.Getenv("BASE_URL")),
 	)
 
-	resCreateSession, err := client.CreateSession(verbeux.SessionCreateRequest{
+	resCreateSession, err := client.CreateSession(context.Background(), verbeux.SessionCreateRequest{
 		SessionAssistantID: verbeux.SessionAssistantID{
-			AssistantId: 153,
+			AssistantId: 865,
 		},
 	})
 	require.NoError(t, err)
 	require.NotEmpty(t, resCreateSession)
 
-	result, err := client.SendMessage(verbeux.SendMessageRequest{
+	result, err := client.SendMessage(context.Background(), verbeux.SendMessageRequest{
 		ID: resCreateSession.ID,
 		SendMessageBody: verbeux.SendMessageBody{
 			Message: "Ola",
-			ClientData: map[string]string{
-				"phone": "phone testing",
+			ClientDataBody: verbeux.ClientDataBody{
+				ClientData: map[string]string{
+					"phone": "phone testing",
+				},
 			},
 			Channel: verbeux.EvolutionChannel,
 		},
@@ -42,9 +52,9 @@ func TestSendMessageAudio(t *testing.T) {
 		verbeux.WithBaseUrl(os.Getenv("BASE_URL")),
 	)
 
-	resCreateSession, err := client.CreateSession(verbeux.SessionCreateRequest{
+	resCreateSession, err := client.CreateSession(context.Background(), verbeux.SessionCreateRequest{
 		SessionAssistantID: verbeux.SessionAssistantID{
-			AssistantId: 153,
+			AssistantId: 865,
 		},
 	})
 
@@ -59,11 +69,13 @@ func TestSendMessageAudio(t *testing.T) {
 		Reader:   fileOpen,
 	}
 
-	result, err := client.SendMessage(verbeux.SendMessageRequest{
+	result, err := client.SendMessage(context.Background(), verbeux.SendMessageRequest{
 		ID: resCreateSession.ID,
 		SendMessageBody: verbeux.SendMessageBody{
-			ClientData: map[string]string{
-				"phone": "phone testing",
+			ClientDataBody: verbeux.ClientDataBody{
+				ClientData: map[string]string{
+					"phone": "phone testing",
+				},
 			},
 			Files: []verbeux.FileAttachment{file},
 		},
@@ -78,9 +90,9 @@ func TestSendMessageImage(t *testing.T) {
 		verbeux.WithBaseUrl(os.Getenv("BASE_URL")),
 	)
 
-	resCreateSession, err := client.CreateSession(verbeux.SessionCreateRequest{
+	resCreateSession, err := client.CreateSession(context.Background(), verbeux.SessionCreateRequest{
 		SessionAssistantID: verbeux.SessionAssistantID{
-			AssistantId: 153,
+			AssistantId: 865,
 		},
 	})
 
@@ -95,13 +107,16 @@ func TestSendMessageImage(t *testing.T) {
 		Reader:   fileOpen,
 	}
 
-	result, err := client.SendMessage(verbeux.SendMessageRequest{
+	result, err := client.SendMessage(context.Background(), verbeux.SendMessageRequest{
 		ID: resCreateSession.ID,
 		SendMessageBody: verbeux.SendMessageBody{
 			Message: "oq tem na imagem?",
-			ClientData: map[string]string{
-				"phone": "phone testing",
+			ClientDataBody: verbeux.ClientDataBody{
+				ClientData: map[string]string{
+					"phone": "phone testing",
+				},
 			},
+
 			Files: []verbeux.FileAttachment{file},
 		},
 	})
@@ -123,15 +138,18 @@ func TestSendMessageOneShot(t *testing.T) {
 		Reader:   fileOpen,
 	}
 
-	result, err := client.OneShot(verbeux.OneShotRequest{
+	result, err := client.OneShot(context.Background(), verbeux.OneShotRequest{
 		SessionAssistantID: verbeux.SessionAssistantID{
-			AssistantId: 153,
+			AssistantId: 865,
 		},
 		SendMessageBody: verbeux.SendMessageBody{
 			Message: "oq tem na imagem?",
-			ClientData: map[string]string{
-				"phone": "phone testing",
+			ClientDataBody: verbeux.ClientDataBody{
+				ClientData: map[string]string{
+					"phone": "phone testing",
+				},
 			},
+
 			Files: []verbeux.FileAttachment{file},
 		},
 	})
