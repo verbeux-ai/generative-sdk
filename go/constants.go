@@ -24,6 +24,7 @@ const (
 	ListResponseType      ResponseType = "list"
 	ImageResponseType     ResponseType = "image"
 	ImageV2ResponseType   ResponseType = "imageV2"
+	FileResponseType      ResponseType = "file"
 	AudioResponseType     ResponseType = "audio"
 )
 
