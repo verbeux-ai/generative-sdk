@@ -32,6 +32,7 @@ func (s *Client) CreateSession(ctx context.Context, request SessionCreateRequest
 	if err != nil {
 		return nil, err
 	}
+	defer res.Body.Close()
 
 	returnedBody := SessionCreateResponse{}
 	if res.Body != nil {
@@ -70,6 +71,7 @@ func (s *Client) UpdateSession(ctx context.Context, request SessionUpdateRequest
 	if err != nil {
 		return nil, err
 	}
+	defer res.Body.Close()
 
 	returnedBody := SessionCreateResponse{}
 	if res.Body != nil {
@@ -80,6 +82,40 @@ func (s *Client) UpdateSession(ctx context.Context, request SessionUpdateRequest
 
 	if res.StatusCode > 399 {
 		return nil, fmt.Errorf("%w: %v", ErrCreateSession, returnedBody)
+	}
+
+	return &returnedBody, nil
+}
+
+func (s *Client) ReadSession(ctx context.Context, sessionID string) (*SessionCreateResponse, error) {
+	requestURL, err := url.Parse(s.baseURL)
+	if err != nil {
+		return nil, err
+	}
+
+	requestURL.Path = fmt.Sprintf("%s/%s", SessionRoute, sessionID)
+
+	httpRequest, err := http.NewRequestWithContext(ctx, "GET", requestURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+	httpRequest.Header.Set("api-key", s.apiKey)
+
+	res, err := s.httpClient.Do(httpRequest)
+	if err != nil {
+		return nil, err
+	}
+	defer res.Body.Close()
+
+	returnedBody := SessionCreateResponse{}
+	if res.Body != nil {
+		if err := json.NewDecoder(res.Body).Decode(&returnedBody); err != nil {
+			return nil, err
+		}
+	}
+
+	if res.StatusCode > 399 {
+		return nil, fmt.Errorf("%w: %v", ErrReadSession, returnedBody)
 	}
 
 	return &returnedBody, nil
