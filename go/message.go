@@ -213,6 +213,47 @@ func (s *Client) OneShot(ctx context.Context, request OneShotRequest) (*SendMess
 	return &returnedBody, nil
 }
 
+func (s *Client) DeleteMessages(ctx context.Context, request DeleteMessagesRequest) ([]Message, error) {
+	requestURL, err := url.Parse(s.baseURL)
+	if err != nil {
+		return nil, err
+	}
+
+	requestURL.Path = fmt.Sprintf("%s/%s/message", SessionRoute, request.SessionID)
+	body, err := json.Marshal(request)
+	if err != nil {
+		return nil, err
+	}
+
+	httpRequest, err := http.NewRequestWithContext(ctx, "DELETE", requestURL.String(), bytes.NewBuffer(body))
+	if err != nil {
+		return nil, err
+	}
+
+	httpRequest.Header.Set("Content-Type", "application/json")
+	httpRequest.Header.Set("api-key", s.apiKey)
+
+	res, err := s.httpClient.Do(httpRequest)
+	if err != nil {
+		return nil, err
+	}
+	defer res.Body.Close()
+
+	var returnedBody []Message
+	if res.Body != nil {
+		if err := json.NewDecoder(res.Body).Decode(&returnedBody); err != nil {
+			// If it's not a []Message, it might be an error message
+			return nil, err
+		}
+	}
+
+	if res.StatusCode > 399 {
+		return nil, fmt.Errorf("%w: %v", ErrDeleteMessage, returnedBody)
+	}
+
+	return returnedBody, nil
+}
+
 // Custom function to create a form file with the correct Content-Type
 func createFormFileWithContentType(w *multipart.Writer, fieldname, filename, contentType string, reader io.Reader) error {
 	// Create the form-data header with the proper Content-Disposition and Content-Type

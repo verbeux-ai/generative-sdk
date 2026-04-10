@@ -164,3 +164,8 @@ type FunctionCallingParametersPropriety struct {
 	Description string   `json:"description"`
 	Enum        []string `json:"enum,omitempty"`
 }
+
+type DeleteMessagesRequest struct {
+	SessionID string   `json:"-"`
+	IDs       []string `json:"ids"`
+}
