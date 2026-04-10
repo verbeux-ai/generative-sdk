@@ -239,16 +239,21 @@ func (s *Client) DeleteMessages(ctx context.Context, request DeleteMessagesReque
 	}
 	defer res.Body.Close()
 
-	var returnedBody []Message
-	if res.Body != nil {
-		if err := json.NewDecoder(res.Body).Decode(&returnedBody); err != nil {
-			// If it's not a []Message, it might be an error message
-			return nil, err
+	if res.StatusCode > 399 {
+		var errRes struct {
+			Message any `json:"message"`
 		}
+		if res.Body != nil {
+			_ = json.NewDecoder(res.Body).Decode(&errRes)
+		}
+		return nil, fmt.Errorf("%w: %v", ErrDeleteMessage, errRes.Message)
 	}
 
-	if res.StatusCode > 399 {
-		return nil, fmt.Errorf("%w: %v", ErrDeleteMessage, returnedBody)
+	var returnedBody []Message
+	if res.StatusCode != http.StatusNoContent && res.Body != nil {
+		if err := json.NewDecoder(res.Body).Decode(&returnedBody); err != nil {
+			return nil, err
+		}
 	}
 
 	return returnedBody, nil
