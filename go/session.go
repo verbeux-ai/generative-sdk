@@ -107,8 +107,18 @@ func (s *Client) ReadSession(ctx context.Context, sessionID string) (*SessionCre
 	}
 	defer res.Body.Close()
 
+	if res.StatusCode > 399 {
+		var errRes struct {
+			Message any `json:"message"`
+		}
+		if res.Body != nil {
+			_ = json.NewDecoder(res.Body).Decode(&errRes)
+		}
+		return nil, fmt.Errorf("%w: %v", ErrReadSession, errRes.Message)
+	}
+
 	returnedBody := SessionCreateResponse{}
-	if res.Body != nil {
+	if res.StatusCode != http.StatusNoContent && res.Body != nil {
 		if err := json.NewDecoder(res.Body).Decode(&returnedBody); err != nil {
 			return nil, err
 		}
