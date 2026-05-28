@@ -7,12 +7,16 @@ import (
 
 type SessionCreateRequest struct {
 	SessionHistory
-	SessionAssistantID
+	SessionAgentID
 	ClientDataBody
 }
 
+type SessionAgentID struct {
+	AgentId int64 `json:"agent_id"`
+}
+
 type SessionAssistantID struct {
-	AssistantId int `json:"assistant_id"`
+	AssistantId int64 `json:"assistant_id"`
 }
 
 type SessionHistory struct {
@@ -48,7 +52,7 @@ type ClientDataBody struct {
 type OneShotRequest struct {
 	SendMessageBody
 	SessionHistory
-	SessionAssistantID
+	SessionAgentID
 	SeedSession string `json:"seed_session,omitempty" form:"seed_session" validate:"omitempty,uuid"`
 }
 
