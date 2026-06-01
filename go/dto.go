@@ -12,11 +12,7 @@ type SessionCreateRequest struct {
 }
 
 type SessionAgentID struct {
-	AgentId int64 `json:"agent_id"`
-}
-
-type SessionAssistantID struct {
-	AssistantId int64 `json:"assistant_id"`
+	AgentID int64 `json:"agent_id"`
 }
 
 type SessionHistory struct {

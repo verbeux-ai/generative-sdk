@@ -167,7 +167,7 @@ func (s *Client) OneShot(ctx context.Context, request OneShotRequest) (*SendMess
 		}
 	}
 
-	if err := writer.WriteField("agent_id", fmt.Sprintf("%d", request.AgentId)); err != nil {
+	if err := writer.WriteField("agent_id", fmt.Sprintf("%d", request.AgentID)); err != nil {
 		return nil, err
 	}
 
