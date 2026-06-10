@@ -27,8 +27,8 @@ func TestSendMessage(t *testing.T) {
 	)
 
 	resCreateSession, err := client.CreateSession(context.Background(), verbeux.SessionCreateRequest{
-		SessionAssistantID: verbeux.SessionAssistantID{
-			AssistantId: 865,
+		SessionAgentID: verbeux.SessionAgentID{
+			AgentID: 865,
 		},
 	})
 	require.NoError(t, err)
@@ -57,8 +57,8 @@ func TestSendMessageAudio(t *testing.T) {
 	)
 
 	resCreateSession, err := client.CreateSession(context.Background(), verbeux.SessionCreateRequest{
-		SessionAssistantID: verbeux.SessionAssistantID{
-			AssistantId: 865,
+		SessionAgentID: verbeux.SessionAgentID{
+			AgentID: 865,
 		},
 	})
 
@@ -95,8 +95,8 @@ func TestSendMessageImage(t *testing.T) {
 	)
 
 	resCreateSession, err := client.CreateSession(context.Background(), verbeux.SessionCreateRequest{
-		SessionAssistantID: verbeux.SessionAssistantID{
-			AssistantId: 865,
+		SessionAgentID: verbeux.SessionAgentID{
+			AgentID: 865,
 		},
 	})
 
@@ -143,8 +143,8 @@ func TestSendMessageOneShot(t *testing.T) {
 	}
 
 	result, err := client.OneShot(context.Background(), verbeux.OneShotRequest{
-		SessionAssistantID: verbeux.SessionAssistantID{
-			AssistantId: 865,
+		SessionAgentID: verbeux.SessionAgentID{
+			AgentID: 865,
 		},
 		SendMessageBody: verbeux.SendMessageBody{
 			Message: "oq tem na imagem?",
