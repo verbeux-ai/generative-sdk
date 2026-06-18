@@ -7,12 +7,12 @@ import (
 
 type SessionCreateRequest struct {
 	SessionHistory
-	SessionAssistantID
+	SessionAgentID
 	ClientDataBody
 }
 
-type SessionAssistantID struct {
-	AssistantId int `json:"assistant_id"`
+type SessionAgentID struct {
+	AgentID int64 `json:"agent_id"`
 }
 
 type SessionHistory struct {
@@ -48,7 +48,7 @@ type ClientDataBody struct {
 type OneShotRequest struct {
 	SendMessageBody
 	SessionHistory
-	SessionAssistantID
+	SessionAgentID
 	SeedSession string `json:"seed_session,omitempty" form:"seed_session" validate:"omitempty,uuid"`
 }
 
@@ -163,4 +163,9 @@ type FunctionCallingParametersPropriety struct {
 	Type        string   `json:"type" validate:"required"`
 	Description string   `json:"description"`
 	Enum        []string `json:"enum,omitempty"`
+}
+
+type DeleteMessagesRequest struct {
+	SessionID string   `json:"-"`
+	IDs       []string `json:"ids"`
 }

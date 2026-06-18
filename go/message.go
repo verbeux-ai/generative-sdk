@@ -166,7 +166,8 @@ func (s *Client) OneShot(ctx context.Context, request OneShotRequest) (*SendMess
 			return nil, err
 		}
 	}
-	if err := writer.WriteField("assistant_id", fmt.Sprintf("%d", request.AssistantId)); err != nil {
+
+	if err := writer.WriteField("agent_id", fmt.Sprintf("%d", request.AgentID)); err != nil {
 		return nil, err
 	}
 
@@ -211,6 +212,52 @@ func (s *Client) OneShot(ctx context.Context, request OneShotRequest) (*SendMess
 	}
 
 	return &returnedBody, nil
+}
+
+func (s *Client) DeleteMessages(ctx context.Context, request DeleteMessagesRequest) ([]Message, error) {
+	requestURL, err := url.Parse(s.baseURL)
+	if err != nil {
+		return nil, err
+	}
+
+	requestURL.Path = fmt.Sprintf("%s/%s/message", SessionRoute, request.SessionID)
+	body, err := json.Marshal(request)
+	if err != nil {
+		return nil, err
+	}
+
+	httpRequest, err := http.NewRequestWithContext(ctx, "DELETE", requestURL.String(), bytes.NewBuffer(body))
+	if err != nil {
+		return nil, err
+	}
+
+	httpRequest.Header.Set("Content-Type", "application/json")
+	httpRequest.Header.Set("api-key", s.apiKey)
+
+	res, err := s.httpClient.Do(httpRequest)
+	if err != nil {
+		return nil, err
+	}
+	defer res.Body.Close()
+
+	if res.StatusCode > 399 {
+		var errRes struct {
+			Message any `json:"message"`
+		}
+		if res.Body != nil {
+			_ = json.NewDecoder(res.Body).Decode(&errRes)
+		}
+		return nil, fmt.Errorf("%w: %v", ErrDeleteMessage, errRes.Message)
+	}
+
+	var returnedBody []Message
+	if res.StatusCode != http.StatusNoContent && res.Body != nil {
+		if err := json.NewDecoder(res.Body).Decode(&returnedBody); err != nil {
+			return nil, err
+		}
+	}
+
+	return returnedBody, nil
 }
 
 // Custom function to create a form file with the correct Content-Type
